@@ -1,2 +1,3 @@
-simd_single
-single
+nosimd_float
+simd_float
+simd_double

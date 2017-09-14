@@ -1,8 +1,11 @@
-all : single simd_single
+all : nosimd_float simd_float simd_double
 
-single : single.c
-	gcc -std=c99 single.c -o single
+nosimd_float : nosimd_float.c
+	gcc -std=c99 nosimd_float.c -o nosimd_float
 
-simd_single : simd_single.c
-	gcc -std=c99 -mavx simd_single.c -o simd_single
+simd_float : simd_float.c
+	gcc -std=c99 -mavx simd_float.c -o simd_float
+
+simd_double : simd_double.c
+	gcc -std=c99 -mavx simd_double.c -o simd_double
 
