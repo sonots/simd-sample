@@ -6,9 +6,13 @@ void vec_add(const size_t n, float *z, const float *x, const float *y){
   static const size_t single_size = 8;
   const size_t end = n / single_size; 
 
-  __m256 *vz = (__m256 *)z;
+  __m256 *vz = (__m256 *)z; // 32 bits (float) * 8
   __m256 *vx = (__m256 *)x;
   __m256 *vy = (__m256 *)y;
+
+  // vx[0] == x[0]
+  // vx[1] == x[8]
+  // vx[2] == x[16]
   
   for(size_t i=0; i<end; ++i)
     vz[i] = _mm256_add_ps(vx[i], vy[i]);
@@ -18,7 +22,7 @@ int main(void){
   const size_t n = 1024000;
   float *x, *y, *z;
 
-  x = (float *)_mm_malloc(sizeof(float) * n, 32);
+  x = (float *)_mm_malloc(sizeof(float) * n, 32); // mm malloc aligns to 32 bytes
   y = (float *)_mm_malloc(sizeof(float) * n, 32);
   z = (float *)_mm_malloc(sizeof(float) * n, 32);
 
